@@ -7,3 +7,5 @@ Creates a list of users and automatically adds an avatar with the first letter o
 - Create React App
 - Bootstrap
 - SCSS
+
+Use **npm start** to run the project.

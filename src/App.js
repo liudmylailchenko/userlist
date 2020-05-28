@@ -7,13 +7,14 @@ class App extends React.Component {
     users: [],
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
       input: event.target.value,
     });
   };
 
-  handleClick = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     if (this.state.input === '') {
       return;
     }
@@ -30,7 +31,7 @@ class App extends React.Component {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-6">
-            <form onSubmit={e => e.preventDefault()}>
+            <form onSubmit={this.handleSubmit}>
               <div className="input-group mb-3 input-group-lg">
                 <input
                   name="username"
@@ -41,11 +42,7 @@ class App extends React.Component {
                   value={this.state.input}
                 />
                 <div className="input-group-append">
-                  <button
-                    className="btn btn-outline-secondary"
-                    type="submit"
-                    onClick={this.handleClick}
-                  >
+                  <button className="btn btn-outline-secondary" type="submit">
                     Add
                   </button>
                 </div>
@@ -54,7 +51,7 @@ class App extends React.Component {
           </div>
 
           <div className="col-6">
-            {this.state.users.map(user => (
+            {this.state.users.map((user) => (
               <div className="user">
                 <div
                   className="user-avatar"
