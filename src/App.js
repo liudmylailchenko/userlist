@@ -1,26 +1,75 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import stc from 'string-to-color';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    input: '',
+    users: [],
+  };
+
+  handleChange = event => {
+    this.setState({
+      input: event.target.value,
+    });
+  };
+
+  handleClick = () => {
+    if (this.state.input === '') {
+      return;
+    }
+    const nextUsers = [...this.state.users, this.state.input];
+
+    this.setState({
+      users: nextUsers,
+      input: '',
+    });
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <div className="row align-items-center">
+          <div className="col-6">
+            <form onSubmit={e => e.preventDefault()}>
+              <div className="input-group mb-3 input-group-lg">
+                <input
+                  name="username"
+                  type="text"
+                  className="form-control"
+                  placeholder="Username"
+                  onChange={this.handleChange}
+                  value={this.state.input}
+                />
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="submit"
+                    onClick={this.handleClick}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div className="col-6">
+            {this.state.users.map(user => (
+              <div className="user">
+                <div
+                  className="user-avatar"
+                  style={{ background: stc(user[0].toUpperCase()) }}
+                >
+                  {user[0].toUpperCase()}
+                </div>
+                {user}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
